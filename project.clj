@@ -3,7 +3,7 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :ring {:handler marauder-api.core}
+  :ring {:handler marauder-api.handler}
   :main marauder-api.core
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [ring/ring "1.4.0"]

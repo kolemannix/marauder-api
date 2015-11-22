@@ -17,10 +17,12 @@
                        :icon 3}}))
 
 (defn update-handler [{:keys [email nickname coordinate icon] :as profile}]
+  (prn "Update handler")
   (swap! profiles* assoc email profile)
   {:status 200 :body {:profiles (vals @profiles*)}})
 
 (defn lock-handler [email]
+  (prn "Lock handler")
   (let [profiles @profiles*
         removed (remove #(= (:email %) email) profiles)]
     (reset! profiles* removed)))
@@ -38,9 +40,5 @@
              wrap-json-response))
 
 (defn -main []
+  (prn "Main running on port 8085!")
   (run-server app {:port 8085}))
-
-(def stop-function (-main))
-
-(stop-function)
-
