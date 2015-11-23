@@ -41,6 +41,6 @@
              wrap-json-response))
 
 (defn -main []
-  (let [port (or (env :port) 8085)]
+  (let [port (Integer. (or (env :port) 8085))]
     (prn "Main running on port " port)
     (run-server app {:port port})))
