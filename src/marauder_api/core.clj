@@ -1,6 +1,7 @@
 (ns marauder-api.core
   (:require [compojure.core :refer [defroutes GET POST]]
             [compojure.route :refer [resources]]
+            [environ.core :refer [env]]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [ring.middleware.multipart-params :refer [wrap-multipart-params]]
             [ring.middleware.params :refer [assoc-query-params wrap-params]]
