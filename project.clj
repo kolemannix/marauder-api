@@ -7,6 +7,7 @@
   :main marauder-api.core
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [ring/ring "1.4.0"]
+                 [environ "1.0.1"]
                  [compojure "1.4.0" :exclusions [joda-time]]
                  [ring/ring-json "0.4.0" :exclusions [joda-time]]
                  [http-kit "2.1.19"]])
