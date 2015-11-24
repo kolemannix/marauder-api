@@ -20,7 +20,7 @@
 (defn update-handler [{:keys [email nickname coordinate icon] :as profile}]
   (prn "Update handler")
   (swap! profiles* assoc email profile)
-  {:status 200 :body {:profiles (vals @profiles*)}})
+  {:status 200 :body {:profiles (vals (dissoc @profiles* email))}})
 
 (defn lock-handler [email]
   (prn "Lock handler")
