@@ -18,15 +18,16 @@
                        :icon 3}}))
 
 (defn update-handler [{:keys [email nickname coordinate icon] :as profile}]
-  (prn "Update handler")
-  (swap! profiles* assoc email profile)
-  {:status 200 :body {:profiles (vals (dissoc @profiles* email))}})
+  (prn "Update handler: " profile)
+  (if (every? some? [email nickname coordinate icon])
+    (do (swap! profiles* assoc email profile)
+        {:status 200 :body {:profiles (vals (dissoc @profiles* email))}})
+    (do (prn "Bad JSON data - profile not inserted")
+        {:status 200 :body {:profiles (vals (dissoc @profiles* email))}})))
 
 (defn lock-handler [email]
-  (prn "Lock handler")
-  (let [profiles @profiles*
-        removed (remove #(= (:email %) email) profiles)]
-    (reset! profiles* removed)))
+  (prn "Lock handler: " email)
+  (swap! profiles* dissoc email))
 
 (defroutes handler
   (POST "/update" [profile :as request]
@@ -42,5 +43,5 @@
 
 (defn -main []
   (let [port (Integer. (or (env :port) 8085))]
-    (prn "Main running on port " port)
+    (prn "Server running on port " port)
     (run-server app {:port port})))
