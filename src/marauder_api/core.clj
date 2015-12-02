@@ -45,3 +45,5 @@
   (let [port (Integer. (or (env :port) 8085))]
     (prn "Server running on port " port)
     (run-server app {:port port})))
+
+(-main)
