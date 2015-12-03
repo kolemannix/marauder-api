@@ -3,8 +3,7 @@
             [compojure.route :refer [resources]]
             [environ.core :refer [env]]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
-            [ring.middleware.multipart-params :refer [wrap-multipart-params]]
-            [ring.middleware.params :refer [assoc-query-params wrap-params]]
+            [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.json :refer [wrap-json-params wrap-json-response]]
             [org.httpkit.server :refer [run-server close]]))
 
@@ -16,8 +15,6 @@
                        :nickname "wormtail"
                        :coordinate rotunda-coords
                        :icon 3}}))
-
-(dissoc {:hello "hi"} :hello)
 
 (defn update-handler [{:keys [email nickname coordinate icon] :as profile}]
   (prn "Update handler: " profile)
@@ -33,6 +30,8 @@
   {:status 200 :body "removed"})
 
 (defroutes handler
+  (GET "/debug" []
+       (or (vals @profiles*) []))
   (POST "/update" [profile :as request]
         (update-handler profile))
   (POST "/lock" [email]
